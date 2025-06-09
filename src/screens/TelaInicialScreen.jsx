@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-export default function HomeScreen() {
+export default function TelaInicial() {
   return (
     <View style={styles.container}>
       <View>

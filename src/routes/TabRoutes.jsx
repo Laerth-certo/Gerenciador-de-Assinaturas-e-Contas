@@ -25,12 +25,23 @@ export default function TabRoutes() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
+            
           ),
+
+          
         }}
       />
 
       
-
+ <Tab.Screen
+        name="TelaInicial"
+        component={CadastroScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
