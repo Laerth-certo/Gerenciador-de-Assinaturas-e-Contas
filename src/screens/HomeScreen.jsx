@@ -1,11 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
-// Telas (você pode adicionar mais depois)
-function HomeScreen({ navigation, route }) {
+// Pega a largura da tela para tornar a logo responsiva
+const { width } = Dimensions.get("window");
+
+// Tela Inicial
+function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.containerLogo}>
@@ -27,7 +36,7 @@ function HomeScreen({ navigation, route }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Dashboard')} // Aqui redireciona para outra tela
+          onPress={() => navigation.navigate("Dashboard")}
         >
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
@@ -36,11 +45,11 @@ function HomeScreen({ navigation, route }) {
   );
 }
 
-// Tela de destino após o login
+// Tela do Dashboard
 function DashboardScreen() {
   return (
-    <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-      <Text style={{ fontSize: 22, color: '#FFF' }}>Bem-vindo ao Dashboard!</Text>
+    <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+      <Text style={{ fontSize: 22, color: "#FFF" }}>Bem-vindo ao Login de Acesso!</Text>
     </View>
   );
 }
@@ -75,50 +84,51 @@ export default function DrawerRoutes() {
   );
 }
 
+// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#38a69d',
+    backgroundColor: "#38a69d",
   },
   containerLogo: {
     flex: 2,
-    backgroundColor: '#38a69d',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: "#38a69d",
+    justifyContent: "center",
+    alignItems: "center",
   },
   logo: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
+    width: width * 0.6,   // 60% da largura da tela
+    height: width * 0.6,  // mesma altura para manter quadrado
+    borderRadius: (width * 0.6) / 2, // círculo perfeito
   },
   containerForm: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd: '5%',
+    paddingStart: "5%",
+    paddingEnd: "5%",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 28,
     marginBottom: 12,
   },
   button: {
-    position: 'absolute',
-    backgroundColor: '#38a69d',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
-    alignSelf: 'center',
-    bottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+  backgroundColor: '#38a69d',
+  borderRadius: 50,
+  paddingVertical: 10,
+  paddingHorizontal: 32,
+  alignSelf: 'center',
+  marginTop: 1, // espaço abaixo do texto
+  alignItems: 'center',
+  justifyContent: 'center',
   },
   buttonText: {
     fontSize: 18,
-    color: '#FFF',
-    fontWeight: 'bold'
-  }
+    color: "#FFF",
+    fontWeight: "bold",
+  },
 });
+
