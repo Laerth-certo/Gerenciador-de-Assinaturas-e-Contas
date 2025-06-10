@@ -4,6 +4,7 @@ import {  NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import DrawerRoutes from './src/routes/DrawerRoutes';
 import TelaInicial from './src/screens/TelaInicialScreen';
+import HomeScreen from "./src/screens/HomeScreen"
 
 export default function App() {
   return (
@@ -11,13 +12,14 @@ export default function App() {
       <NavigationContainer>
       
         
-          <View style={styles.statusBarBackground} />
-        )
-        <StatusBar style="light" />
+          {/* <View style={styles.statusBarBackground} />
+        
+        <StatusBar style="light" /> */}
 
-        <View style={styles.container}>
-          <DrawerRoutes />
-        </View>
+       {/*  <View style={styles.container}> */}
+         { <DrawerRoutes />}
+        
+        {/* </View> */}
 
       </NavigationContainer>
     </PaperProvider>

@@ -1,44 +1,38 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
 import CadastroScreen from "../screens/CadastroScreen";
 import CadastroConta from "../screens/CadastroConta";
+import HomeScreen from "../screens/HomeScreen"
+
+ const Tab = createBottomTabNavigator();
 
 export default function TabRoutes() {
-  const Tab = createBottomTabNavigator();
+ 
+
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Screen 
+    
+    name="HomeScreen"
+    component={HomeScreen}
+    />
       <Tab.Screen
-        name="CadastroScreen"
+        name="Cadastro de Assinatura"
         component={CadastroScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+            <Ionicons name="create" color={color} size={size} />
           ),
         }}
       />
- <Tab.Screen
-        name="CadastroConta"
+      <Tab.Screen
+        name="Cadastro de Conta"
         component={CadastroConta}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
-            
-          ),
-
-          
-        }}
-      />
-
-      
- <Tab.Screen
-        name="TelaInicial"
-        component={CadastroScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" color={color} size={size} />
+            <Ionicons name="card" color={color} size={size} />
           ),
         }}
       />

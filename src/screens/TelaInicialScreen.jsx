@@ -6,7 +6,7 @@ export default function TelaInicial() {
     <View style={styles.container}>
       <View>
         <Image
-          source={require('../logo/logo.jpg')}
+          source={require('../doc/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
