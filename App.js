@@ -5,7 +5,10 @@ import { PaperProvider } from 'react-native-paper';
 import DrawerRoutes from './src/routes/DrawerRoutes';
 import TelaInicial from './src/screens/TelaInicialScreen';
 import HomeScreen from "./src/screens/HomeScreen"
-
+import AssinaturasListScreen from "./src/screens/Assinaturas/AssinaturasListScreen";
+import AssinaturaFormScreen from "./src/screens/Assinaturas/AssinaturaFormScreen";
+import ContasListScreen from "./src/screens/Contas/ContasListScreen";
+import ContaFormScreen from "./src/screens/Contas/ContaFormScreen";
 export default function App() {
   return (
     <PaperProvider>

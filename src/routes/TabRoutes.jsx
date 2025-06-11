@@ -28,7 +28,7 @@ export default function TabRoutes() {
         }}
       />
       <Tab.Screen
-        name="Cadastro de Conta"
+        name="Acesse a sua Conta"
         component={CadastroConta}
         options={{
           tabBarIcon: ({ color, size }) => (
