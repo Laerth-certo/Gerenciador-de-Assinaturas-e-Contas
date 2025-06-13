@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CadastroScreen from "../screens/CadastroScreen";
 import CadastroConta from "../screens/CadastroConta";
 import HomeScreen from "../screens/HomeScreen"
+import CadastroDuvidas from "../screens/CadastroDuvidas"
 
  const Tab = createBottomTabNavigator();
 

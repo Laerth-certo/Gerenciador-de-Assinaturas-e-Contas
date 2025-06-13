@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { TextInput, Button, Text, Title } from "react-native-paper";
+import { TextInputMask } from 'react-native-masked-text'
 
 
 
@@ -91,6 +92,7 @@ export default function CadastroScreen() {
     </KeyboardAvoidingView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

@@ -36,7 +36,7 @@ function HomeScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Dashboard")}
+          onPress={() => navigation.navigate("CadastroConta")}
         >
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
 }
 
 // Tela do Dashboard
-function DashboardScreen() {
+function DashboardScreen() { 
   return (
     <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
       <Text style={{ fontSize: 22, color: "#FFF" }}>Bem-vindo ao Login de Acesso!</Text>
