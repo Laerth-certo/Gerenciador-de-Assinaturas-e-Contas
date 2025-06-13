@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react"; // Importe useState
 import {
   View,
   Text,
@@ -6,10 +6,30 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Alert, // Importe Alert para mensagens
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-export default function CadastroConta({ navigation,route}) {
+export default function CadastroConta({ navigation }) { // Removido 'route' se não for usado
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Função para lidar com o login
+  const handleLogin = () => {
+    if (email === '' || password === '') {
+      Alert.alert('Atenção', 'Por favor, preencha todos os campos!');
+      return;
+    }
+    // Lógica de autenticação real viria aqui (ex: API call)
+    // Por enquanto, apenas um alerta de sucesso/erro simulado
+    if (email === 'teste@teste.com' && password === '123456') {
+      Alert.alert('Sucesso', 'Login realizado com sucesso!');
+      // navigation.navigate('NomeDaSuaTelaInicialAposLogin'); // Navegar para a tela principal
+    } else {
+      Alert.alert('Erro', 'Email ou senha incorretos.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#38a69d" barStyle="light-content" />
@@ -19,23 +39,32 @@ export default function CadastroConta({ navigation,route}) {
         delay={500}
         style={styles.containerHeader}
       >
-        <Text style={styles.message}>Bem-vindo(a) Abigail Sena </Text>
+        <Text style={styles.message}>Bem-vindo(a)!</Text> {/* Mensagem mais genérica */}
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <Text style={styles.title}>Email</Text>
-        <TextInput placeholder="Digite um email..." style={styles.input} />
+        <TextInput
+          placeholder="Digite seu email..."
+          style={styles.input}
+          keyboardType="email-address" // Teclado otimizado para email
+          autoCapitalize="none" // Desativa capitalização automática
+          value={email}
+          onChangeText={setEmail}
+        />
         <View style={styles.underline} />
 
         <Text style={styles.title}>Senha</Text>
         <TextInput
           placeholder="Sua senha"
-          secureTextEntry
+          secureTextEntry // Esconde a senha
           style={styles.input}
+          value={password}
+          onChangeText={setPassword}
         />
         <View style={styles.underline} />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
 
@@ -51,6 +80,8 @@ export default function CadastroConta({ navigation,route}) {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -83,11 +114,14 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     marginBottom: 4,
+    borderBottomWidth: 1, // Adiciona uma linha de borda inferior
+    borderBottomColor: '#ccc', // Cor da linha
   },
   underline: {
-    height: 1,
-    backgroundColor: "#ccc",
-    marginBottom: 12,
+    // Este estilo pode ser removido agora que o input tem borda inferior
+    // height: 1,
+    // backgroundColor: "#ccc",
+    // marginBottom: 12,
   },
   button: {
     backgroundColor: "#38a69d",
