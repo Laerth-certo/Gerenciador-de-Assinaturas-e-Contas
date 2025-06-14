@@ -7,8 +7,12 @@ import HomeScreen from "../screens/HomeScreen";
 import TabRoutes from "./TabRoutes";
 import CadastroConta from "../screens/CadastroConta";
 import CadastroScreen from "../screens/CadastroScreen";
+<<<<<<< HEAD
 import CadastroDuvidas from "../screens/CadastroDuvidas";
 import ListarContas from "../screens/ListarContas";
+=======
+import MensagemScreen from "../screens/MensagemScreen"
+>>>>>>> 0500b8cb5a8ef7484de6af85b0d6859a8edc32e0
 
 const Drawer = createDrawerNavigator();
 
@@ -57,8 +61,8 @@ export default function DrawerRoutes() {
       
       
       <Drawer.Screen
-      name="CadastroDuvidas"
-      component={CadastroDuvidas}
+      name="MensagemScreen"
+      component={MensagemScreen}
       />
        <Drawer.Screen
       name="ListarContas"

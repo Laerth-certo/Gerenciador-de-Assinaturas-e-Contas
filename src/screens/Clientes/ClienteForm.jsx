@@ -1,58 +1,10 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
-import { TextInput, Button, Title } from "react-native-paper";
-import { TextInputMask } from 'react-native-masked-text';
-import CadastroService from "./CadastroService";
-
-export default function CadastroScreen({ navigation, route }) {
-  const contaAntigo = route.params || {};
-
-  const [nome, setNome] = useState(contaAntigo.nome || "");
-  const [email, setEmail] = useState(contaAntigo.email || "");
-  const [senha, setSenha] = useState(contaAntigo.senha || "");
-  const [tipoAssinatura, setTipoAssinatura] = useState(contaAntigo.tipoAssinatura || "");
-  const [formaPagamento, setFormaPagamento] = useState(contaAntigo.formaPagamento || "");
-  const [dataVencimento, setDataVencimento] = useState(contaAntigo.dataVencimento || "");
-
-  async function salvar() {
-    let conta = {
-      nome,
-      email,
-      senha,
-      tipoAssinatura,
-      formaPagamento,
-      dataVencimento
-    };
-
-    if (!conta.nome || !conta.email || !conta.senha || !conta.tipoAssinatura || !conta.formaPagamento || !conta.dataVencimento) {
-      alert('Preencha todos os campos!');
-      return;
-    }
-
-    if (contaAntigo.id) {
-      conta.id = contaAntigo.id;
-      await CadastroService.atualizar(conta);
-      alert("Conta alterada com sucesso!");
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "ListarContas" }]
-      });
-    } else {
-      await CadastroService.salvar(conta);
-      alert("Conta cadastrada com sucesso!");
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'ListarContas' }]
-      });
-=======
 import { useState } from 'react';
-import { StyleSheet, View, Alert } from 'react-native'; // Importe Alert aqui
+import { StyleSheet, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { Button, Text, TextInput } from 'react-native-paper';
+import ClienteService from '../ClienteService'; // Verifique o caminho correto para ClienteService
 
-import ClienteService from './ClienteService';
-export default function CadastroScreen({ navigation, route }) {
+export default function ClienteForm({ navigation, route }) {
   const clienteAntigo = route.params || {};
 
   const [nome, setNome] = useState(clienteAntigo.nome || "");
@@ -61,7 +13,7 @@ export default function CadastroScreen({ navigation, route }) {
   const [telefone, setTelefone] = useState(clienteAntigo.telefone || "");
   const [dataNascimento, setDataNascimento] = useState(clienteAntigo.dataNascimento || "");
   const [tipoAssinatura, setTipoAssinatura] = useState(clienteAntigo.tipoAssinatura || "");
-  const [dataVencimento, setDataVencimento] = useState(clienteAntigo.dataVencimento || "");
+  const [dataVencimento, setDataVencimento] = useState(clienteAntigo.dataVencimento || ""); // Corrigido para dataVencimento
 
   async function salvar() {
     let cliente = {
@@ -70,30 +22,29 @@ export default function CadastroScreen({ navigation, route }) {
       email,
       telefone,
       dataNascimento,
-      tipoAssinatura,
+      tipoAssinatura, // <<< Adicionado vírgula aqui
       dataVencimento
     };
 
-    // Validação: Verifique se todos os campos estão preenchidos
-    if (!cliente.nome || !cliente.cpf || !cliente.email || !cliente.dataNascimento ||
-        !cliente.telefone || !cliente.tipoAssinatura || !cliente.dataVencimento) {
-      Alert.alert('Atenção', 'Por favor, preencha todos os campos!');
+    // Validação de todos os campos
+    if (!cliente.nome || !cliente.cpf || !cliente.email || !cliente.dataNascimento || !cliente.telefone || !cliente.tipoAssinatura || !cliente.dataVencimento) {
+      alert('Por favor, preencha todos os campos!');
       return;
     }
 
-    try {
+    try { // Adicionado try-catch para lidar com erros do serviço
       if (clienteAntigo.id) {
         // ALTERANDO UM CLIENTE EXISTENTE
         cliente.id = clienteAntigo.id;
         await ClienteService.atualizar(cliente);
-        Alert.alert("Sucesso", "Cliente alterado com sucesso!");
+        alert("Cliente alterado com sucesso!");
       } else {
         // CADASTRANDO UM NOVO CLIENTE
         await ClienteService.salvar(cliente);
-        Alert.alert("Sucesso", "Cliente cadastrado com sucesso!");
+        alert("Cliente cadastrado com sucesso!");
       }
 
-      // Após salvar/atualizar com sucesso, navegue de volta para a lista de clientes
+      // Redireciona para a lista de clientes após salvar/atualizar
       navigation.reset({
         index: 0,
         routes: [{ name: 'ClienteLista' }]
@@ -101,26 +52,18 @@ export default function CadastroScreen({ navigation, route }) {
 
     } catch (error) {
       console.error("Erro ao salvar cliente:", error);
-      Alert.alert("Erro", "Ocorreu um erro ao salvar o cliente. Tente novamente.");
->>>>>>> 0500b8cb5a8ef7484de6af85b0d6859a8edc32e0
+      alert("Ocorreu um erro ao salvar o cliente. Tente novamente.");
     }
   }
 
   return (
-<<<<<<< HEAD
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <View style={styles.form}>
-        <Title style={styles.title}>Cadastro</Title>
-=======
     <View style={styles.container}>
       <Text variant='titleLarge'>Informe os dados do Cliente:</Text>
->>>>>>> 0500b8cb5a8ef7484de6af85b0d6859a8edc32e0
 
+      {/* Exibindo o ID do cliente (se houver) */}
       <Text variant='titleLarge'>ID CLIENTE: {clienteAntigo.id || 'NOVO'}</Text>
 
+      {/* Campos de Input */}
       <TextInput
         style={styles.input}
         mode='outlined'
@@ -177,33 +120,6 @@ export default function CadastroScreen({ navigation, route }) {
         )}
       />
 
-<<<<<<< HEAD
-        <TextInput
-          label="Data de Vencimento"
-          value={dataVencimento}
-          onChangeText={setDataVencimento}
-          style={styles.input}
-          mode="outlined"
-          placeholder="DD/MM/AAAA"
-          keyboardType="numeric"
-          render={props => (
-            <TextInputMask
-              {...props}
-              type={'datetime'}
-              options={{ format: 'DD/MM/YYYY' }}
-            />
-          )}
-        />
-
-        <Button mode="contained" onPress={salvar} style={styles.button}>
-          Cadastrar
-        </Button>
-      </View>
-    </KeyboardAvoidingView>
-  );
-}
-
-=======
       <TextInput
         style={styles.input}
         mode='outlined'
@@ -227,7 +143,7 @@ export default function CadastroScreen({ navigation, route }) {
         style={styles.input}
         mode='outlined'
         label="Tipo de Assinatura"
-        placeholder='Ex: Mensal, Anual'
+        placeholder='Ex: Premium, Básico, Anual'
         value={tipoAssinatura}
         onChangeText={setTipoAssinatura}
       />
@@ -251,6 +167,7 @@ export default function CadastroScreen({ navigation, route }) {
         )}
       />
 
+      {/* Botão Salvar */}
       <Button
         style={styles.input}
         mode='contained'
@@ -258,11 +175,12 @@ export default function CadastroScreen({ navigation, route }) {
       >
         Salvar
       </Button>
-
     </View>
   );
 }
->>>>>>> 0500b8cb5a8ef7484de6af85b0d6859a8edc32e0
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -274,4 +192,3 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 });
-
