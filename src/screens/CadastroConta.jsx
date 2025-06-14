@@ -19,7 +19,7 @@ export default function CadastroConta({ navigation,route}) {
         delay={500}
         style={styles.containerHeader}
       >
-        <Text style={styles.message}>Bem-vindo(a) Abigail Sena </Text>
+        <Text style={styles.message}>Bem-vindo(a) Gustavo Clay </Text>
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>

@@ -8,6 +8,7 @@ import TabRoutes from "./TabRoutes";
 import CadastroConta from "../screens/CadastroConta";
 import CadastroScreen from "../screens/CadastroScreen";
 import CadastroDuvidas from "../screens/CadastroDuvidas";
+import ListarContas from "../screens/ListarContas";
 
 const Drawer = createDrawerNavigator();
 
@@ -58,6 +59,10 @@ export default function DrawerRoutes() {
       <Drawer.Screen
       name="CadastroDuvidas"
       component={CadastroDuvidas}
+      />
+       <Drawer.Screen
+      name="ListarContas"
+      component={ListarContas}
       />
 
 

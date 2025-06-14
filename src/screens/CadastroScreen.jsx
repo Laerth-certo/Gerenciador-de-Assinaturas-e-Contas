@@ -1,32 +1,55 @@
 import React, { useState } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
-import { TextInput, Button, Text, Title } from "react-native-paper";
-import { TextInputMask } from 'react-native-masked-text'
+import { TextInput, Button, Title } from "react-native-paper";
+import { TextInputMask } from 'react-native-masked-text';
+import CadastroService from "./CadastroService";
 
+export default function CadastroScreen({ navigation, route }) {
+  const contaAntigo = route.params || {};
 
+  const [nome, setNome] = useState(contaAntigo.nome || "");
+  const [email, setEmail] = useState(contaAntigo.email || "");
+  const [senha, setSenha] = useState(contaAntigo.senha || "");
+  const [tipoAssinatura, setTipoAssinatura] = useState(contaAntigo.tipoAssinatura || "");
+  const [formaPagamento, setFormaPagamento] = useState(contaAntigo.formaPagamento || "");
+  const [dataVencimento, setDataVencimento] = useState(contaAntigo.dataVencimento || "");
 
+  async function salvar() {
+    let conta = {
+      nome,
+      email,
+      senha,
+      tipoAssinatura,
+      formaPagamento,
+      dataVencimento
+    };
 
+    if (!conta.nome || !conta.email || !conta.senha || !conta.tipoAssinatura || !conta.formaPagamento || !conta.dataVencimento) {
+      alert('Preencha todos os campos!');
+      return;
+    }
 
-export default function CadastroScreen() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [tipoAssinatura, setTipoAssinatura] = useState("");
-  const [formaPagamento, setFormaPagamento] = useState("");
-  const [dataVencimento, setDataVencimento] = useState("");
-
-  const handleSubmit = () => {
-    console.log("Nome:", nome);
-    console.log("Email:", email);
-    console.log("Senha:", senha);
-    console.log("Tipo de Assinatura/Conta:", tipoAssinatura);
-    console.log("Forma de Pagamento:", formaPagamento);
-    console.log("Data de Vencimento:", dataVencimento);
-  };
+    if (contaAntigo.id) {
+      conta.id = contaAntigo.id;
+      await CadastroService.atualizar(conta);
+      alert("Conta alterada com sucesso!");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "ListarContas" }]
+      });
+    } else {
+      await CadastroService.salvar(conta);
+      alert("Conta cadastrada com sucesso!");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'ListarContas' }]
+      });
+    }
+  }
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.form}>
@@ -75,7 +98,7 @@ export default function CadastroScreen() {
           mode="outlined"
         />
 
-         <TextInput
+        <TextInput
           label="Data de Vencimento"
           value={dataVencimento}
           onChangeText={setDataVencimento}
@@ -83,16 +106,22 @@ export default function CadastroScreen() {
           mode="outlined"
           placeholder="DD/MM/AAAA"
           keyboardType="numeric"
+          render={props => (
+            <TextInputMask
+              {...props}
+              type={'datetime'}
+              options={{ format: 'DD/MM/YYYY' }}
+            />
+          )}
         />
 
-        <Button mode="contained" onPress={handleSubmit} style={styles.button}>
+        <Button mode="contained" onPress={salvar} style={styles.button}>
           Cadastrar
         </Button>
       </View>
     </KeyboardAvoidingView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -120,3 +149,4 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
 });
+
